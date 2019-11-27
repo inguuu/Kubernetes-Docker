@@ -4,6 +4,8 @@ Azure(centos)에 Docker/Kubernetes 배포... 정리
 
 AKS를 쓰지 않고 처음부터 해보는 도커, 쿠버네티스 실습
 
+실습하면서 헷갈리고 사이트마다 다른건 (*팡.)을 붙이겠다.
+
 후... 5일동안 구글, 깃, 스택오버플로우 모두 에러 찾고 .... 겨우 성공 ... 그냥 AKS를 쓰자 
 
 ## 환경
@@ -14,7 +16,7 @@ AKS를 쓰지 않고 처음부터 해보는 도커, 쿠버네티스 실습
 - 3개의 가상머신(master, work1, work2)// 같은 네트워크여야 한다.
 - node.js
 
-## 기본설정 
+## 설치 및 등록 
 
 ### master,work1,work2 3곳에서 하기(공통)
 
@@ -80,3 +82,59 @@ exclude=kube*
 EOF
   ```
   
+  
+   ```shell
+   yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+
+
+
+    systemctl enable kubelet && systemctl start kubelet
+  ```
+
+
+### master에서만
+
+#### 1. 쿠버네티스 초기화
+
+배포모듈에 따라서 다르다 
+
+- kubeadm init
+- kubeadm init --apiserver-advertise-address=172.22.4.5 
+- kubeadm init --apiserver-advertise-address=172.22.4.5 --pod-network-cidr=10.244.0.0/16 
+- 등등 
+
+#### 2. 조인키 저장(work들 조인에 쓰임)
+
+
+
+`kubeadm join 172.22.4.5:6443 --token gtna4q.x3j0cp16t1n0tltu --discovery-token-ca-cert-hash sha256:ccf40ff0eddbe0ed6`
+- init 성공시 발급 저장하자 
+- 재발급도 가능, 24시간 수명
+
+#### 3. 이미지 받기
+
+-kubeadm config images pull
+
+
+#### 4. 명령 root, 일반 다름 (*팡.)
+
+- 일반에도 주기
+ ```shell
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  ```
+- 루트 진행시 
+ ```shell
+export KUBECONFIG=/etc/kubernetes/admin.conf
+  ```
+
+
+### 5. 배포 설치 (*팡.)
+
+- 정말 여러가지가 있다. 몇개월 마다 바뀌니깐 사이트 보지말고 공식 홈페이지에서 바뀐 url 받자 
+
+`kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"`
+
+`kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml`
+- (2019.11.27까지는 된다. 언제 안될지 모름 그땐 공식사이트 참조) 
