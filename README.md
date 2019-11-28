@@ -161,6 +161,29 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 - kubectl get pods --all-namespaces
 
 
+## 실습
 
+
+### node.js or 도커에 쓰일 파일들 설치
+
+ - 나는 node.js 앱 설치(인터넷에서 확인!)
+ 
+ - https://november11tech.tistory.com/159 노드 파일 등록은 여기 참조 index.js, express 등 
+ 
+### 도커 설치 및 이용
+
+ ```shell
+ DockerFile 등록 마찬가지로 위 사이트( 제일 중요 !!! 이거 이해하면 도커 끝 (*팡!))
+ 
+ docker build -t hk3/test3 . (경로/앱이름 '.'이거 꼭 해야한다.)
+
+ docker image list | grep hk3/test3 // 설치확인
+ 
+ docker run -p 3003:3003 -d hk3/test3 // 도커 실행 등록한 포트에 맞추기 
+
+ docker ps -a //실행 확인 
+ ```
+- #### 성공시 hostip:3003 들어가면 나와야한다.
+ 
 
 
