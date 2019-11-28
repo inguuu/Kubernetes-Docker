@@ -1,13 +1,14 @@
 # Kubernetes-Docker
-Azure(centos)에 Docker/Kubernetes 배포... 정리
+Azure(centos)에 Docker/Kubernetes 배포 과정 정리
 
 
 AKS를 쓰지 않고 처음부터 해보는 도커, 쿠버네티스 실습
 
 실습하면서 헷갈리고 사이트마다 다른건 (*팡.)을 붙이겠다.
 
-후... 5일동안 구글, 깃, 스택오버플로우 모두 에러 찾고 .... 겨우 성공 ... 그냥 AKS를 쓰자 
+후... 5일동안 구글, 깃, 스택오버플로우 100개 넘는 블로그 모두 에러 찾고 .... 겨우 성공 ... 그냥 AKS를 쓰자 
 
+원리는 완벽히 알 수 있음... 
 ## 환경
 - Azure
 - CentOS7
@@ -138,3 +139,28 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 `kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml`
 - (2019.11.27까지는 된다. 언제 안될지 모름 그땐 공식사이트 참조) 
+
+### work에서만
+
+아까 받은 조인키
+
+`kubeadm join 172.22.4.5:6443 --token gtna4q.x3j0cp16t1n0tltu --discovery-token-ca-cert-hash sha256:ccf40ff0eddbe0ed6538eecaefd6259bd59db8b752bc5316d863d0a7091142d9`
+
+성공하면 kubectl get nodes라는 메세지가 나온다.
+
+이미 사용중 포트가 뜨면 kubeadm하고 실행 
+
+### 정상적 연결 확인 (위 과정 끝내고 master에서 실행) 
+
+- kubectl get no
+
+- kubectl get componentstatuses
+
+- kubectl describe pod etcd-master 
+
+- kubectl get pods --all-namespaces
+
+
+
+
+
