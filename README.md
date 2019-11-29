@@ -71,6 +71,7 @@ systemctl start docker && systemctl enable docker
 #### 5. 쿠버네티스 설치 적용
   
    ```shell
+   //파일 
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 
 [kubernetes]
@@ -94,11 +95,9 @@ EOF
   
   
    ```shell
-   yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-
-
-
-    systemctl enable kubelet && systemctl start kubelet
+ yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes// 설치
+ 
+ systemctl enable kubelet && systemctl start kubelet//실행
   ```
 
 
@@ -123,8 +122,9 @@ EOF
 
 #### 3. 이미지 받기
 
--kubeadm config images pull
-
+```shell
+kubeadm config images pull
+```
 
 #### 4. 명령 root, 일반 다름 (*팡.)
 
@@ -161,14 +161,15 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 ### 정상적 연결 확인 (위 과정 끝내고 master에서 실행) 
 
-- kubectl get no
+ ```shell
+ kubectl get no
 
-- kubectl get componentstatuses
+ kubectl get componentstatuses
 
-- kubectl describe pod etcd-master 
+ kubectl describe pod etcd-master 
 
-- kubectl get pods --all-namespaces
-
+ kubectl get pods --all-namespaces
+ ```
 
 ## 실습
 
@@ -192,9 +193,9 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
  docker ps -a //실행 확인 
  ```
- #### 성공시 hostip:3003 들어가면 나와야한다.
+ > 성공시 hostip:3003 들어가면 나와야한다.
 
- #### 도커는 컨테이너로 만들어버려서 정말 편리하다. 하지만 이러한 컨테이너들이 많아지면 관리하기 어려워 지는데 
- #### 이러한 문제를 해결하는 것이 쿠버네티스 또한 다른 가상머신과도 공유까지 가능 
+> 도커는 컨테이너로 만들어버려서 정말 편리하다. 하지만 이러한 컨테이너들이 많아지면 관리하기 어려워 지는데 
+ > 이러한 문제를 해결하는 것이 쿠버네티스 또한 다른 가상머신과도 공유까지 가능 
 
 
