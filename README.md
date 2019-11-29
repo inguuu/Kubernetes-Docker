@@ -23,8 +23,8 @@ AKS를 쓰지 않고 처음부터 해보는 도커, 쿠버네티스 실습
 
 ## 설치 및 등록 
 
-### master,work1,work2 3곳에서 하기(공통)
-
+### [master,work1,work2 3곳에서 하기(공통)]
+<hr>
 #### 1. vi /etc/hosts 호스트 추가
 
  
@@ -101,8 +101,8 @@ EOF
   ```
 
 
-### master에서만
-
+### [master에서만]
+<hr>
 #### 1. 쿠버네티스 초기화
 
 배포모듈에 따라서 다르다 
@@ -149,8 +149,8 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 `kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml`
 - (2019.11.27까지는 된다. 언제 안될지 모름 그땐 공식사이트 참조) 
 
-### work에서만
-
+### [work에서만]
+<hr>
 아까 받은 조인키
 
 `kubeadm join 172.22.4.5:6443 --token gtna4q.x3j0cp16t1n0tltu --discovery-token-ca-cert-hash sha256:ccf40ff0eddbe0ed6538eecaefd6259bd59db8b752bc5316d863d0a7091142d9`
