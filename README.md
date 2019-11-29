@@ -180,7 +180,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
  
  - https://november11tech.tistory.com/159 노드 파일 등록은 여기 참조 index.js, express 등 
  
-### 도커 설치 및 이용
+### 도커 이미지화 및 배포
 
  ```shell
  DockerFile 등록 마찬가지로 위 사이트( 제일 중요 !!! 이거 이해하면 도커 끝 (*팡!))
@@ -197,5 +197,91 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
  #### 도커는 컨테이너로 만들어버려서 정말 편리하다. 하지만 이러한 컨테이너들이 많아지면 관리하기 어려워 지는데 
  #### 이러한 문제를 해결하는 것이 `쿠버네티스` 또한 다른 가상머신과도 공유까지 가능 
+
+### 쿠버네티스 환경 배포
+
+
+#### 1. 배포파일 작성
+
+`vi deployments.yaml`
+
+ ```shell
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-web-app1
+  labels:
+    app: node-web-app1
+spec:
+  selector:
+    matchLabels:
+      app: node-web-app1
+  replicas: 3  // 스케일링 부분 !!!
+  template:
+    metadata:
+      labels:
+        app: node-web-app1
+    spec:
+      containers:
+      - name: node-web-app
+        image: november11/node-web-app1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3005
+        
+ ```        
+
+#### 2. deployment 적용 및 파드 확인 
+
+ ```shell
+kubectl apply -f deployments.yaml
+
+kubectl get pod 
+ ```     
+
+#### 3. 서비스파일 작성 (*팡.)(*팡.)  
+
+`vi services.yaml`
+
+```shell
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-web-app1
+spec:
+  selector:
+    app: node-web-app1
+  ports:
+  - protocol: "TCP"
+    port: 3006
+    targetPort: 3006
+  type: LoadBalancer
+  externalIPs:
+  -52.141.3.115
+
+ ```          
+> externalIPs: 아이피  // 진짜 이부분 어디에도 안나옴!! (꿀팀)
+
+#### 4. 서비스 배포 적용 및 파드 확인 
+
+```shell
+kubectl apply -f services.yaml`
+
+kubectl get services` 
+```
+
+> 서비스가 작동 되면 성공!
+
+#### 5. 안될때 (*팡.)
+
+```shell
+kubectl taint nodes --all node-role.kubernetes.io/master-
+
+kubectl describe nodes node1 | grep -i taint
+
+kubectl run testsvr --image=nginx --replicas=7
+
+kubectl get pods -o wide | grep testsvr
+```
 
 
