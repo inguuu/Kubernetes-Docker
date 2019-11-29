@@ -272,6 +272,8 @@ kubectl get services`
 
 > 서비스가 작동 되면 성공!
 
+![성공](https://user-images.githubusercontent.com/49789734/69837816-fa79cc00-1293-11ea-8085-bbdb70ad08bd.png)
+
 #### 5. 안될때 (*팡.)
 
 ```shell
