@@ -170,6 +170,10 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
  kubectl get pods --all-namespaces
  ```
+ 
+ ![1](https://user-images.githubusercontent.com/49789734/69838210-e2a34780-1295-11ea-90a5-cc903203b1f9.png)
+
+
 
 ## 실습
 
@@ -238,6 +242,8 @@ kubectl apply -f deployments.yaml
 
 kubectl get pod 
  ```     
+![2](https://user-images.githubusercontent.com/49789734/69838211-e2a34780-1295-11ea-97cd-aadce101828a.png)
+
 
 #### 3. 서비스파일 작성 (*팡.)(*팡.)  
 
@@ -262,6 +268,8 @@ spec:
  ```          
 > externalIPs: 아이피  // 진짜 이부분 어디에도 안나옴!! (꿀팀)
 
+
+
 #### 4. 서비스 배포 적용 및 파드 확인 
 
 ```shell
@@ -269,7 +277,7 @@ kubectl apply -f services.yaml`
 
 kubectl get services` 
 ```
-
+![3](https://user-images.githubusercontent.com/49789734/69838212-e2a34780-1295-11ea-8988-2c98a3c3bfa1.png)
 > 서비스가 작동 되면 성공!
 
 ![성공](https://user-images.githubusercontent.com/49789734/69837816-fa79cc00-1293-11ea-8085-bbdb70ad08bd.png)
