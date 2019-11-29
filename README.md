@@ -244,7 +244,11 @@ kubectl get pod
  ```     
 ![2](https://user-images.githubusercontent.com/49789734/69838211-e2a34780-1295-11ea-97cd-aadce101828a.png)
 
+> Pending 나오면(*팡.)
 
+ ```shell
+kubectl taint nodes --all node-role.kubernetes.io/master-
+ ```     
 #### 3. 서비스파일 작성 (*팡.)(*팡.)  
 
 `vi services.yaml`
@@ -273,9 +277,9 @@ spec:
 #### 4. 서비스 배포 적용 및 파드 확인 
 
 ```shell
-kubectl apply -f services.yaml`
+kubectl apply -f services.yaml
 
-kubectl get services` 
+kubectl get services
 ```
 ![3](https://user-images.githubusercontent.com/49789734/69838212-e2a34780-1295-11ea-8988-2c98a3c3bfa1.png)
 > 서비스가 작동 되면 성공!
