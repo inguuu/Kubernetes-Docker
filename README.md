@@ -17,6 +17,10 @@ AKS를 쓰지 않고 처음부터 해보는 도커, 쿠버네티스 실습
 - 3개의 가상머신(master, work1, work2)// 같은 네트워크여야 한다.
 - node.js
 
+## 실습 시나리오
+
+![image](https://user-images.githubusercontent.com/49789734/69837033-2004d680-1290-11ea-9204-1631342d9d05.png)
+
 ## 설치 및 등록 
 
 ### master,work1,work2 3곳에서 하기(공통)
@@ -50,6 +54,10 @@ sysctl --system
 modprobe br_netfilter
   ```
   
+  
+  ![8](https://user-images.githubusercontent.com/49789734/69836959-a40a8e80-128f-11ea-96f8-4a997a6a167f.png)
+
+
 ####  4. 도커 설치 및 적용
   
    ```shell
@@ -58,7 +66,8 @@ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce
 yum install docker-ce
 systemctl start docker && systemctl enable docker
   ```
-  
+  ![4](https://user-images.githubusercontent.com/49789734/69836960-a5d45200-128f-11ea-85cf-49b96ff4ed66.png)
+
 #### 5. 쿠버네티스 설치 적용
   
    ```shell
@@ -175,15 +184,17 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
  ```shell
  DockerFile 등록 마찬가지로 위 사이트( 제일 중요 !!! 이거 이해하면 도커 끝 (*팡!))
  
- docker build -t hk3/test3 . (경로/앱이름 '.'이거 꼭 해야한다.)
+ docker build -t hk3/test3 . (경로/앱이름 '.'이거 꼭 해야한다.) // 컨테이너 만들기, 이미지화 하기 
 
  docker image list | grep hk3/test3 // 설치확인
  
- docker run -p 3003:3003 -d hk3/test3 // 도커 실행 등록한 포트에 맞추기 
+ docker run -p 3003:3003 -d hk3/test3 // 도커 실행 등록한 포트에 맞추기 , 이미지 실행
 
  docker ps -a //실행 확인 
  ```
-- #### 성공시 hostip:3003 들어가면 나와야한다.
- 
+ #### 성공시 hostip:3003 들어가면 나와야한다.
+
+ #### 도커는 컨테이너로 만들어버려서 정말 편리하다. 하지만 이러한 컨테이너들이 많아지면 관리하기 어려워 지는데 
+ #### 이러한 문제를 해결하는 것이 쿠버네티스 또한 다른 가상머신과도 공유까지 가능 
 
 
