@@ -21,8 +21,8 @@ AKS를 쓰지 않고 처음부터 해보는 도커, 쿠버네티스 실습
 
 ![image](https://user-images.githubusercontent.com/49789734/69837033-2004d680-1290-11ea-9204-1631342d9d05.png)
 
-master는 컨트롤러가 된다
-직접적인 pod처리는 work에서
+- master는 컨트롤러가 된다 (관리)
+- 직접적인 pod처리는 work에서 (실행)
 
 ## 설치 및 등록 
 
