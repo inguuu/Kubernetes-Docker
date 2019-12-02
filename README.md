@@ -34,7 +34,7 @@ AKS를 쓰지 않고 처음부터 해보는 도커, 쿠버네티스 실습
   ```shell
   172.91.2 master
   172.91.2 work1
-  172.91.3 work2
+  172.91.3 work2 
   ```
 #### 2. su - 
   
@@ -289,7 +289,7 @@ kubectl get services
 
 ![성공](https://user-images.githubusercontent.com/49789734/69837816-fa79cc00-1293-11ea-8085-bbdb70ad08bd.png)
 
-#### 5. 안될때 (*팡.)
+#### 5. 안될때 (*팡..)
 
 ```shell
 kubectl taint nodes --all node-role.kubernetes.io/master-
